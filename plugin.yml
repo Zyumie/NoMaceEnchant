@@ -1,0 +1,5 @@
+name: NoMaceEnchant
+version: 1.0.0
+author: Zyumie
+main: fr.zyumie.nomaceenchant.Main
+api-version: 1.21
