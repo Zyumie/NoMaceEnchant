@@ -52,23 +52,31 @@ public class Main extends JavaPlugin implements Listener {
 
 
     // Bloque l'enchantement à la table
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEnchant(EnchantItemEvent event) {
         ItemStack item = event.getItem();
-        if (item.getType() == Material.MACE) {
-            event.setCancelled(true);
-            clearEnchants(item);
+
+        if (item == null || item.getType() != Material.MACE) {
+            return; // ⬅️ laisse TOUS les autres items tranquilles
         }
+
+        event.setCancelled(true);
+        clearEnchants(item);
     }
+
 
     // Bloque l'enchantement via enclume (livres)
     @EventHandler
     public void onAnvil(PrepareAnvilEvent event) {
         ItemStack result = event.getResult();
-        if (result != null && result.getType() == Material.MACE) {
-            event.setResult(null);
+
+        if (result == null || result.getType() != Material.MACE) {
+            return; // ⬅️ indispensable
         }
+
+        event.setResult(null); // bloque UNIQUEMENT la mace
     }
+
 
 
     // Supprime les enchants d'une mace
